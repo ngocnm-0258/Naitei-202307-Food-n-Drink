@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    '403' => "You don't have permission to access this resources!"
+    'failed' => 'Tên tài khoản hoặc mật khẩu không chính xác',
+    'password' => 'Mật khẩu không chính xác',
+    'throttle' => 'Bạn đã thử đăng nhập quá nhiều. Vui lòng thử lại sau',
+    '403' => "Bạn không có quyền truy cập!"
 ];
