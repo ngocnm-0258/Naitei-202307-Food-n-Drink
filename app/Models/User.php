@@ -11,6 +11,20 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const ACTIVE_STATUS_DEFAULT = false;
+    const CART_IDS_DEFAULT = '';
+    const FIRST_NAME_DEFAULT = '';
+    const LAST_NAME_DEFAULT = '';
+    const ROLE_DEFAULT = 'USER';
+
+    protected $attributes = [
+        'first_name' => self::FIRST_NAME_DEFAULT,
+        'last_name' => self::LAST_NAME_DEFAULT,
+        'is_active' => self::ACTIVE_STATUS_DEFAULT,
+        'cart_ids' => self::CART_IDS_DEFAULT,
+        'role' => self::ROLE_DEFAULT,
+    ];
+
     protected $fillable = [
         'username',
         'email',
@@ -18,6 +32,8 @@ class User extends Authenticatable
         'last_name',
         'is_active',
         'cart_ids',
+        'role',
+        'password',
     ];
 
     protected $hidden = [
