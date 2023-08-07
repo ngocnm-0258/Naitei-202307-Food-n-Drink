@@ -21,7 +21,6 @@ class User extends Authenticatable
         'first_name' => self::FIRST_NAME_DEFAULT,
         'last_name' => self::LAST_NAME_DEFAULT,
         'is_active' => self::ACTIVE_STATUS_DEFAULT,
-        'cart_ids' => self::CART_IDS_DEFAULT,
         'role' => self::ROLE_DEFAULT,
     ];
 
@@ -31,7 +30,6 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'is_active',
-        'cart_ids',
         'role',
         'password',
     ];
@@ -43,7 +41,6 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
         'created_at' => 'date:d/m/Y',
         'updated_at' => 'date:d/m/Y',
     ];
