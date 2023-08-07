@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,6 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function scopeAdmin($query)
+    {
+        return $query->where('role', UserRole::ROLE_ADMIN);
+    }
+
     public function cartItems()
     {
         return $this->hasMany(CartItem::class);
@@ -82,6 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Order::class);
     }
+
     public function productReview()
     {
         return $this->hasMany(ProductReview::class);
