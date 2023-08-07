@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
     const CART_IDS_DEFAULT = '';
     const FIRST_NAME_DEFAULT = '';
     const LAST_NAME_DEFAULT = '';
-    const ROLE_DEFAULT = 'USER';
+    const ROLE_DEFAULT = UserRole::ROLE_USER;
 
     protected $attributes = [
         'first_name' => self::FIRST_NAME_DEFAULT,
