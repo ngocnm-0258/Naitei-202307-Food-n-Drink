@@ -4,7 +4,7 @@
 
 @layer components {
   .button {
-    @apply inline-flex items-center rounded-md border border-transparent bg-gray-500 px-4 py-2 text-xs font-semibold capitalize tracking-widest text-white ring-gray-300 transition duration-150 ease-in-out hover:hover:bg-gray-700 focus:outline-none focus:ring-2 active:bg-gray-900 disabled:opacity-25;
+    @apply inline-flex items-center rounded-md border border-transparent bg-gray-500 px-4 py-2 text-sm font-bold capitalize tracking-widest text-white ring-gray-300 transition duration-150 ease-in-out hover:hover:bg-gray-700 focus:outline-none focus:ring-2 active:bg-gray-900 disabled:opacity-25;
   }
   .button.primary {
     @apply bg-green-500  ring-green-300 hover:hover:bg-green-700 focus:ring-2 active:bg-green-900;
