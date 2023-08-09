@@ -47,21 +47,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'updated_at' => 'date:d/m/Y',
     ];
 
-    protected $append = ['full_name'];
+    protected $appends = ['full_name'];
 
-    public function getFullName()
+    public function getFullNameAttribute()
     {
         return $this->last_name . ' ' . $this->first_name;
     }
 
-    public function setFullName($value)
+    public function setFullNameAttribute($value)
     {
 
         $names = explode(' ', $value);
-        return [
-            'first_name' => $names[0] ?? '',
-            'last_name' => $names[1] ?? '',
-        ];
+        $this->first_name = $names[0] ?? '';
+        $this->last_name = $names[1] ?? '';
     }
 
     public function cartItems()
