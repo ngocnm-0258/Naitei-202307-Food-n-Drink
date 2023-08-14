@@ -18,4 +18,12 @@ return [
         'qualityRating' => 'Quality rating: ',
         'message' => 'The restaurant has no other products',
     ],
+
+    'edit' => [
+        'name' => 'Name',
+        'description' => 'Description',
+        'price' => 'Price',
+        'numberStock' => 'Number in stock',
+        'photo' => 'Photo',
+    ],
 ];

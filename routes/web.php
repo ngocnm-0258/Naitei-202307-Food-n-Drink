@@ -23,6 +23,8 @@ Route::get('/', function () {
 });
 
 Route::resource('/users', UserController::class)->middleware(['auth']);
+Route::get('/users/{user}/products', [UserController::class, 'showUserProducts'])
+    ->name('user.products')->middleware(['auth', 'checkSalesman']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

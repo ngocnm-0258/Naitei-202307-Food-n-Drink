@@ -9,8 +9,12 @@
         <div class="w-full flex flex-row">
             <div class="basis-2/3 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="w-full">
-                        <img class="" src="{{ $product->photo }}" alt="Card image">
+                    <div class="w-full h-full">
+                        @if (strpos($product->photo, 'https://via.placeholder.com/') === 0)
+                            <img src="{{ $product->photo }}" alt="Card image">
+                        @else
+                            <img src="{{ asset($product->photo) }}" alt="Card image">
+                        @endif
                     </div>
                     <div class="w-full justify-items-center">
 
@@ -18,7 +22,7 @@
 
                         <div class="grid grid-cols-3 gap-4">
                             <div class="border-r-2 border-gray-500 text-gray-500 text-base mb-4">{{ __('product.show.ratePoint') }}{{ $product->rate }}/5</div>
-                            <div class="border-r-2 border-gray-500 text-gray-500 text-base mb-4">{{ $product->review }}{{__('product.show.comment')}}</div>
+                            <div class="border-r-2 border-gray-500 text-gray-500 text-base mb-4">{{ $product->review }}{{ __('product.show.comment') }}</div>
                             <div class="text-gray-500 text-base mb-4">{{ $product->number_of_purchase }}{{ __('product.show.sold') }}</div>
                         </div>
 

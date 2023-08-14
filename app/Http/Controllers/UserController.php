@@ -26,6 +26,15 @@ class UserController extends Controller
         return view('users.index')->with('users', $users);
     }
 
+    public function showUserProducts(User $user)
+    {
+        $products = DB::table('products')->where('salesman_id', $user->id)
+            ->orderBy('id', 'desc')
+            ->paginate('8');
+
+        return view('users.products')->with('products', $products);
+    }
+
     public function create()
     {
         return view('users.create');

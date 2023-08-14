@@ -30,4 +30,14 @@ return [
     'destroy' => [
         'success' => 'Xóa người dùng thành công',
     ],
+    'products' => [
+        'button' => 'Tạo sản phẩm mới',
+        'table' => [
+            'id' => '#',
+            'name' => 'Tên sản phẩm',
+            'price' => 'Giá thành',
+            'images' => 'Hình ảnh',
+            'numberStock' => 'Số lượng trong kho',
+        ],
+    ],
 ];
