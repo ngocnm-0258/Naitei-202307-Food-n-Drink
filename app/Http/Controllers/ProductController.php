@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\ProductReview;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->orderBy('id', 'desc')->get();
+        $products = DB::table('products')->orderBy('id', 'desc')->paginate(config('app.pagination.per_page'));
 
         return view('products.index', compact('products'));
     }
@@ -45,11 +47,19 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        $count = DB::table('product_reviews')->where('product_id', $product->id)->count();
+        $product->review = $count;
+        $reviews = ProductReview::with('user')->where('product_id', $product->id)->get();
+        $sameUserProducts = DB::table('products')
+            ->where('salesman_id', $product->salesman_id)
+            ->where('id', '<>', $product->id)
+            ->get();
+
+        return view('products.show', compact('product', 'reviews', 'sameUserProducts'));
     }
 
     /**

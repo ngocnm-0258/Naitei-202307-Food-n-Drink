@@ -1,4 +1,5 @@
 require('./bootstrap')
+require('../js/product/quantity');
 
 import Alpine from 'alpinejs'
 
