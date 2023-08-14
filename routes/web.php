@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,9 +26,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::resource('/contacts', ContactController::class)->middleware(['auth', 'verified']);
 
 Route::resource('/products', ProductController::class);
 
