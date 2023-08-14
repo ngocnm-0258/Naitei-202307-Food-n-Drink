@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->orderBy('id', 'desc')->get();
+        $products = DB::table('products')->orderBy('id', 'desc')->paginate(config('app.pagination.per_page'));
 
         return view('products.index', compact('products'));
     }
