@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     const ORDER_STATUS_DEFAULT = OrderStatus::WAITING;
+
     private function getPaymentStatusOnStore($paymentMethods)
     {
         switch ($paymentMethods) {
@@ -34,7 +35,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $user->load('orders.orderItems.product');
+
+        return view('order.index')->with('user', $user);
     }
 
     /**
@@ -100,9 +104,11 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+        $order->load('contact');
+
+        return view('order.show')->with('order', $order);
     }
 
     /**

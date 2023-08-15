@@ -18,13 +18,22 @@ class OrderItem extends Model
         'status',
     ];
 
+    protected $appended = [
+        'totalPrice',
+    ];
+
     public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->product->price * $this->quantity;
     }
 }
