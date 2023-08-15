@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['index', 'create', 'store']]);
+        $this->middleware(['auth', 'checkAdmin'], ['only' => ['index', 'create', 'store']]);
     }
 
     public function index(Request $request)

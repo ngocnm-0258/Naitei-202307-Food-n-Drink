@@ -1,6 +1,15 @@
 <?php
 
 return [
+    'Quantity' => 'Quantity',
+    'Total' => 'Total (:totalQuantity products)',
+    'Payment Method' => 'Payment Method',
+    'index' => [
+        'title' => 'Orders',
+    ],
+    'show' => [
+        'title' => 'Order #:id',
+    ],
     'create' => [
         'title' => 'Create order',
         'cart' => [

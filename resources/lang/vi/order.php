@@ -1,6 +1,15 @@
 <?php
 
 return [
+    'Quantity' => 'Sô lượng',
+    'Total' => 'Tổng cộng (:totalQuantity sản phẩm)',
+    'Payment Method' => 'Phương thức thanh toán',
+    'index' => [
+        'title' => 'Đơn hàng',
+    ],
+    'show' => [
+        'title' => 'Đơn hàng #:id',
+    ],
     'create' => [
         'title' => 'Tạo đơn hàng',
         'cart' => [

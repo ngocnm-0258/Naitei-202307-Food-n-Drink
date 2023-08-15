@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
-            <div class="flex">
+            <div class="flex grow">
                 <!-- Logo -->
                 <div class="flex shrink-0 items-center">
                     <a href="{{ route('dashboard') }}">
@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex grow">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -22,6 +22,22 @@
                             </x-nav-link>
                         @endif
                     @endauth
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                        {{ __('Products') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                        {{ __('Order') }}
+                    </x-nav-link>
+                    <div class="grow"></div>
+                    <div class="ml-auto flex items-center">
+                        <a href="{{ route('cart.index') }}" class="hover:fill-orange-400 h-fit w-full scale-75">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" id="cart">
+                                <path
+                                    d="M0 4h5l1 4h24l-2 14H6L3.5 6H0zm10 20a3 3 0 0 0 0 6 3 3 0 0 0 0-6m14 0a3 3 0 0 0 0 6 3 3 0 0 0 0-6">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
 
