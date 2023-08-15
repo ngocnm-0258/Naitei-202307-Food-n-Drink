@@ -29,4 +29,9 @@ return [
     'destroy' => [
         'success' => 'Xóa địa chỉ giao hàng thành công!',
     ],
+    'validation' => [
+        'id' => [
+            'required' => 'Vui lòng thêm đia chỉ giao hàng để tiếp tục',
+        ],
+    ],
 ];

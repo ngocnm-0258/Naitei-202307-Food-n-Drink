@@ -6,15 +6,16 @@ window.Alpine = Alpine
 
 Alpine.start()
 
-import $ from "jquery";
-window.$ = window.jQuery = $;
+import $ from 'jquery'
+window.$ = window.jQuery = $
 
-$("[data-confirm]").on("click", function (e) {
-    var message = $(this).data("confirm");
+$('[data-confirm]').on('click', function (e) {
+    var message = $(this).data('confirm')
 
     if (!confirm(message)) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
+        e.preventDefault()
+        e.stopImmediatePropagation()
     }
-});
+})
 
+require('./customSelect')

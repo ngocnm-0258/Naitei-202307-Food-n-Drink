@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +32,6 @@ Route::resource('/contacts', ContactController::class)->middleware(['auth', 'ver
 
 Route::resource('/products', ProductController::class);
 Route::resource('/cart', CartController::class);
+Route::resource('/orders', OrderController::class);
 
 require __DIR__ . '/auth.php';

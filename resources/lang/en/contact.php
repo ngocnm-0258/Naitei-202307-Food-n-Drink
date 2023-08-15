@@ -29,4 +29,9 @@ return [
     'destroy' => [
         'success' => 'Contact delete successfully!',
     ],
+    'validation' => [
+        'id' => [
+            'required' => 'Please add a delivery address to proceed.',
+        ],
+    ],
 ];
