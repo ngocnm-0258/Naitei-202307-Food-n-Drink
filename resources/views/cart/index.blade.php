@@ -45,9 +45,10 @@
                             {{ formatCurrency($user->cartItems->sum('total_price')) }}
                         </strong></div>
                     <div class="text-right">
-                        <button class="button edit">
+                        <a href="{{ route('orders.create') }}"
+                            class="button edit @if ($user->cartItems->count() <= 0) disabled @endif">
                             {{ __('Checkout') }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,10 @@
 {
-  "Create At": "Create At",
-  "Confirm Delete": "Are you sure you want to delete this item?",
-  "Cancel": "Cancel",
-  "Save changes": "Save changes",
-  "Delete": "Delete",
-  "Edit": "Edit"
+    "Create At": "Create At",
+    "Confirm Delete": "Are you sure you want to delete this item?",
+    "Cancel": "Cancel",
+    "Save changes": "Save changes",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "currency": "USD",
+    "Order": "Order"
 }
