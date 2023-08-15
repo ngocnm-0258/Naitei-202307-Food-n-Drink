@@ -64,7 +64,7 @@
                                         {{ __('Edit') }}
                                     </a>
                                     <form method="POST"
-                                          action="{{ route('products.destroy', $product->id) }}" class="button delete">
+                                          action="{{ route('products.destroy', ['product' => $product->id]) }}" class="button delete">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
