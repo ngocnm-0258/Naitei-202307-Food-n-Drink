@@ -37,3 +37,5 @@ Route::resource('/cart', CartController::class);
 Route::resource('/orders', OrderController::class);
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/salesman.php';
