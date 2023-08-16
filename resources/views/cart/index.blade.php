@@ -17,19 +17,19 @@
                         </thead>
                         <tbody>
                             <!-- Loop through cart items -->
-                            @foreach ($user->cartItems as $item)
+                            @foreach ($cartItems as $item)
                                 <tr>
                                     <td class="py-2 text-center"><a
-                                            href="{{ route('products.show', $item['product']['id']) }}">{{ $item['product']['name'] }}</a>
+                                        href="{{ route('products.show', $item->product_id) }}">{{ $item->product->name }}</a>
                                     </td>
                                     <td class="py-2 text-center">
-                                        {{ formatCurrency($item['product']['price'], __('currency')) }}</td>
+                                        {{ $item->product->price }}</td>
                                     <td class="py-2 text-center">
                                         <input type="number" class="w-16 p-1 border rounded-md"
-                                            value="{{ $item['quantity'] }}" min="1">
+                                            value="{{ $item->quantity }}" min="1">
                                     </td>
                                     <td class="py-2 text-center">
-                                        {{ formatCurrency($item['total_price'], __('currency')) }}
+                                        {{ $item['total_price'] }}
                                     </td>
                                     <td class="py-2 text-center">
                                         <button class="text-red-500 hover:text-red-700">{{ __('Remove') }}</button>
@@ -42,11 +42,11 @@
 
                 <div class='p-4 pt-0 rounded-md'>
                     <div class="text-right"><strong>{{ __('Total') }}:
-                            {{ formatCurrency($user->cartItems->sum('total_price')) }}
+                            {{ $cartItems->sum('total_price') }}
                         </strong></div>
                     <div class="text-right">
                         <a href="{{ route('orders.create') }}"
-                            class="button edit @if ($user->cartItems->count() <= 0) disabled @endif">
+                            class="button edit @if ($cartItems->count() <= 0) disabled @endif">
                             {{ __('Checkout') }}
                         </a>
                     </div>

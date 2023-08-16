@@ -9,4 +9,7 @@ return [
     'show' => [
         'title' => 'Giỏ hàng',
     ],
+    'add' => [
+        'success' => 'Thêm sản phẩm vào giỏ hàng thành công',
+    ],
 ];

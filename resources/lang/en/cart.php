@@ -9,4 +9,7 @@ return [
     'show' => [
         'title' => 'Shopping Cart',
     ],
+    'add' => [
+        'success' => 'Add product into cart successfully',
+    ],
 ];
