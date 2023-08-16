@@ -30,4 +30,14 @@ return [
     'destroy' => [
         'success' => 'User deleted successfully!',
     ],
+    'products' => [
+        'button' => 'Create A Product',
+        'table' => [
+            'id' => '#',
+            'name' => 'Name',
+            'price' => 'Price',
+            'images' => 'Image',
+            'numberStock' => 'Number in Stock',
+        ],
+    ],
 ];

@@ -18,4 +18,12 @@ return [
         'qualityRating' => 'Đánh giá chất lượng: ',
         'message' => 'Nhà hàng không còn sản phẩm nào khác',
     ],
+
+    'edit' => [
+        'name' => 'Tên sản phẩm',
+        'description' => 'Mô tả',
+        'price' => 'Giá thành',
+        'numberStock' => 'Số lượng trong kho',
+        'photo' => 'Hình ảnh',
+    ],
 ];
