@@ -19,12 +19,12 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'username' => 'admin' . '-account',
-            'first_name' => UserRole::ROLE_ADMIN,
+            'first_name' => 'admin',
             'last_name' => 'account',
             'email' => 'admin.account@sun-asterisk.com',
             'password' => bcrypt('12345678'),
             'is_active' => true,
-            'role' => 'admin',
+            'role' => UserRole::ROLE_ADMIN,
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ]);
