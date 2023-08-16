@@ -39,7 +39,7 @@
                             <input type="file" class="form-control" id="photo" name="photo" value="{{ old('photo') }}">
                         </div>
                         <div>
-                            <button type="submit" class="button edit">
+                            <button type="submit" class="button create">
                                 {{ __('Create') }}
                             </button>
                         </div>

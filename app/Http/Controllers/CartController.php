@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        $user = Auth::user();
-        $user->load('cartItems');
+        $cartItems = CartItem::with('product')->where('user_id', Auth::user()->id)->get();
 
-        return view('cart.index')->with('user', $user);
+        return view('cart.index')->with('cartItems', $cartItems);
     }
 
     /**
@@ -35,11 +35,35 @@ class CartController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $added_cart = CartItem::where('product_id', $request->id)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+
+        if ($request->quantity > 1) {
+            $added = $request->quantity;
+        } else {
+            $added = 1;
+        }
+
+        if ($added_cart) {
+            $added_cart->quantity = $added_cart->quantity + $added;
+
+            $added_cart->save();
+        } else {
+            $cart = new CartItem;
+
+            $cart->product_id = $request->id;
+            $cart->user_id = Auth::user()->id;
+            $cart->quantity = $added;
+
+            $cart->save();
+        }
+
+        return back()->with('success', trans('cart.add.success'));
     }
 
     /**
