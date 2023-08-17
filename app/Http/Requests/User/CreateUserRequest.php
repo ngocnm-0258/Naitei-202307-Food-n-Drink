@@ -5,6 +5,7 @@ namespace App\Http\Requests\User;
 use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class CreateUserRequest extends FormRequest
 {
@@ -28,6 +29,7 @@ class CreateUserRequest extends FormRequest
             'username' => 'required|string|max:255',
             'email' => 'required|email',
             'password' => 'required|string|max:255',
+            'role' => Rule::in(UserRole::$types),
         ];
     }
 }

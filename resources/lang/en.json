@@ -6,5 +6,7 @@
     "Delete": "Delete",
     "Edit": "Edit",
     "currency": "USD",
-    "Order": "Order"
+    "Order": "Order",
+    "Login": "Log in",
+    "Register": "Register"
 }

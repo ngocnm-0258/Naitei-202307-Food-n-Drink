@@ -12,79 +12,90 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex grow">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+
                     @auth
+                        @if (Auth::user()->role === 'ADMIN' || Auth::user()->role === 'SALESMAN')
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('user.products', ['user' => Auth::user()->id])" :active="request()->routeIs('user.products')">
+                                {{ __('Products') }}
+                            </x-nav-link>
+                        @endif
                         @if (Auth::user()->role === 'ADMIN')
                             <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                                 {{ __('Users') }}
-                            </x-nav-link>
-                        @endif
-
-                        @if (Auth::user()->role === 'ADMIN' || Auth::user()->role === 'SALESMAN')
-                            <x-nav-link :href="route('user.products', ['user' => Auth::user()->id])" :active="request()->routeIs('user.products')">
-                                {{ __('Products') }}
                             </x-nav-link>
                         @endif
                     @endauth
                     <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
                         {{ __('Products') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
-                        {{ __('Order') }}
-                    </x-nav-link>
+                    @auth
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                            {{ __('Order') }}
+                        </x-nav-link>
+                    @endauth
                     <div class="grow"></div>
                     @include('components/language-switcher')
-                    <div class="ml-auto flex items-center">
-                        <a href="{{ route('cart.index') }}" class="hover:fill-orange-400 h-fit w-full scale-75">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" id="cart">
-                                <path
-                                    d="M0 4h5l1 4h24l-2 14H6L3.5 6H0zm10 20a3 3 0 0 0 0 6 3 3 0 0 0 0-6m14 0a3 3 0 0 0 0 6 3 3 0 0 0 0-6">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
+                    @auth
+                        <div class="ml-auto flex items-center">
+                            <a href="{{ route('cart.index') }}" class="hover:fill-orange-400 h-fit w-full scale-75">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" id="cart">
+                                    <path
+                                        d="M0 4h5l1 4h24l-2 14H6L3.5 6H0zm10 20a3 3 0 0 0 0 6 3 3 0 0 0 0-6m14 0a3 3 0 0 0 0 6 3 3 0 0 0 0-6">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    @endauth
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button
-                            class="flex items-center text-sm font-medium text-gray-500 transition duration-150 ease-in-out hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none">
-                            <div>{{ Auth::user()->username }}</div>
+            @auth
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button
+                                class="flex items-center text-sm font-medium text-gray-500 transition duration-150 ease-in-out hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none">
+                                <div>{{ Auth::user()->username }}</div>
 
-                            <div class="ml-1">
-                                <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+                                <div class="ml-1">
+                                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
 
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('users.show', Auth::id())">
-                            Profile
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                        <x-slot name="content">
+                            <x-dropdown-link :href="route('users.show', Auth::id())">
+                                Profile
                             </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
+
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
+            @else
+                <div class="flex items-center">
+                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline dark:text-gray-500">Log in</a>
+                    <a href="{{ route('register') }}"
+                        class="ml-4 text-sm text-gray-700 underline dark:text-gray-500">Register</a>
+                </div>
+            @endauth
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -110,26 +121,26 @@
             </x-responsive-nav-link>
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="border-t border-gray-200 pb-1 pt-4">
-            <div class="px-4">
-                <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
+        @auth
+            <div class="border-t border-gray-200 pb-1 pt-4">
+                <div class="px-4">
+                    <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
+                </div>
 
-            <div class="mt-3 space-y-1">
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                <div class="mt-3 space-y-1">
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault();
-                        this.closest('form').submit();"
-                    >
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+                        <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                        this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-responsive-nav-link>
+                    </form>
+                </div>
             </div>
-        </div>
+        @endauth
     </div>
 </nav>

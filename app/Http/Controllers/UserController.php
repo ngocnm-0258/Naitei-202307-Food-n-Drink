@@ -48,6 +48,8 @@ class UserController extends Controller
         $user->email = $validated['email'];
         $user->username = $validated['username'];
         $user->password = bcrypt($validated['password']);
+        $user->role = $validated['role'];
+        $user->is_active = true;
         $user->save();
 
         return redirect()->route('users.index')->with('success', trans('user.store.success'));
