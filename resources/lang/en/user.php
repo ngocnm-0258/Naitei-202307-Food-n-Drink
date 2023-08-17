@@ -4,6 +4,7 @@ return [
     'button' => 'Create a user',
     'username' => 'Username',
     'fullname' => 'Full name',
+    'password' => "Password",
     'index' => [
         'title' => 'Users list',
         'table' => [

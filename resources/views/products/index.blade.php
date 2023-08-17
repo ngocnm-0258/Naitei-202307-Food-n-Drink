@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Product List') }}
@@ -21,13 +22,16 @@
                                             @if (strpos($product->photo, 'https://via.placeholder.com/') === 0)
                                                 <img class="w-full h-56" src="{{ $product->photo }}" alt="Card image">
                                             @else
-                                                <img class="w-full h-56" src="{{ asset($product->photo) }}" alt="Card image">
+                                                <img class="w-full h-56" src="{{ asset($product->photo) }}"
+                                                    alt="Card image">
                                             @endif
                                             <div class="px-6 py-4">
                                                 <input type="hidden" name="id" value="{{ $product->id }}" />
                                                 <div class="flex justify-between items-center">
                                                     <div class="font-bold text-xl mb-4">{{ $product->name }}</div>
-                                                    <div class="font-bold text-sm text-gray-400 mb-4">{{ __('product.index.sold') }}{{ $product->number_of_purchase }}</div>
+                                                    <div class="font-bold text-sm text-gray-400 mb-4">
+                                                        {{ __('product.index.sold') }}{{ $product->number_of_purchase }}
+                                                    </div>
                                                 </div>
                                                 <div class="text-gray-700 text-base">
                                                     @php
