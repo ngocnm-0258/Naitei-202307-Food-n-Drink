@@ -75,25 +75,28 @@ class OrderController extends Controller
             return redirect()->back()->with('fail', trans('order.store.fail'));
         }
 
-        DB::transaction(function () use ($request, $user) {
-            $order = new Order;
-            $order->user_id = Auth::id();
-            $order->contact_id = $request["contact_id"];
-            $order->save();
+        $groupedProducts = $user->cartItems->groupBy('product.salesman_id');
 
-            foreach ($user->cartItems as $item) {
-                $orderItem = new OrderItem;
-                $orderItem->order_id = $order->id;
-                $orderItem->product_id = $item->product_id;
-                $orderItem->quantity = $item->quantity;
-                $orderItem->payment_method = $request["payment_method"];
-                $orderItem->status = self::ORDER_STATUS_DEFAULT;
-                $orderItem->payment_status = $this->getPaymentStatusOnStore($request["payment_method"]);
-                $orderItem->save();
-            };
+        foreach ($groupedProducts as $salesmanId => $items) {
+            DB::transaction(function () use ($request, $items) {
+                $order = new Order;
+                $order->user_id = Auth::id();
+                $order->contact_id = $request["contact_id"];
+                $order->save();
 
-            CartItem::destroy($user->cartItems->pluck('id'));
-        });
+                foreach ($items as $item) {
+                    $orderItem = new OrderItem;
+                    $orderItem->order_id = $order->id;
+                    $orderItem->product_id = $item->product_id;
+                    $orderItem->quantity = $item->quantity;
+                    $orderItem->payment_method = $request["payment_method"];
+                    $orderItem->status = self::ORDER_STATUS_DEFAULT;
+                    $orderItem->payment_status = $this->getPaymentStatusOnStore($request["payment_method"]);
+                    $orderItem->save();
+                };
+            });
+        }
+        $user->cartItems()->delete();
 
         return redirect(route('products.index'))->with('success', trans('order.store.success'));
     }

@@ -1,21 +1,30 @@
+import $ from "jquery";
+
 document.addEventListener("DOMContentLoaded", function () {
-    const minusBtn = document.getElementById("minus-btn");
-    const plusBtn = document.getElementById("plus-btn");
-    const quantityInput = document.getElementById("quantity");
-    const numberInStock = parseInt(quantityInput.getAttribute("data"));
+    const minusBtns = document.querySelectorAll(".minus-btn");
+    const plusBtns = document.querySelectorAll(".plus-btn");
+    const quantityInputs = document.querySelectorAll(".quantity-input");
 
-    minusBtn.addEventListener("click", function () {
-        let currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-        }
+    minusBtns.forEach(minusBtn => {
+        minusBtn.addEventListener("click", function () {
+            let quantityInput = this.parentNode.querySelector(".quantity-input");
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
     });
 
-    plusBtn.addEventListener("click", function () {
-        let currentValue = parseInt(quantityInput.value);
-        if (currentValue < numberInStock) {
-            quantityInput.value = currentValue + 1;
-        }
+    plusBtns.forEach(plusBtn => {
+        plusBtn.addEventListener("click", function () {
+            let quantityInput = this.parentNode.querySelector(".quantity-input");
+            let currentValue = parseInt(quantityInput.value);
+            let max = parseInt(quantityInput.getAttribute("data-max"));
+            if (currentValue < max) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
     });
+
 });
 

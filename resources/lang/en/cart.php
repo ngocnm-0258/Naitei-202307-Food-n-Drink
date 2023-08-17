@@ -12,4 +12,7 @@ return [
     'add' => [
         'success' => 'Add product into cart successfully',
     ],
+    'delete' => [
+        'success' => 'Delete cart item successfully',
+    ],
 ];
