@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('language/{locale}', [LangController::class, "changeLang"])->name('changeLanguage');
+
+Route::get('/', [ProductController::class, 'index']);
+Route::resource('/products', ProductController::class);
 
 Route::resource('/users', UserController::class)->middleware(['auth']);
 Route::get('/users/{user}/products', [UserController::class, 'showUserProducts'])
@@ -32,7 +34,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('/contacts', ContactController::class)->middleware(['auth', 'verified']);
 
-Route::resource('/products', ProductController::class);
 Route::resource('/cart', CartController::class);
 Route::resource('/orders', OrderController::class);
 
