@@ -16,11 +16,13 @@
             </div>
             <div class="p-4 mb-4 bg-white rounded-md">
                 @foreach ($order->orderItems as $orderItem)
-                    @if ($loop->iteration < 3)
                         <div class="flex mb-4 w-full">
                             <div class="w-1/6 mr-4">
-                                <img class="object-cover" src="{{ $orderItem->product->photo }}"
-                                    alt="{{ $orderItem->product->name }}">
+                                @if (strpos($orderItem->product->photo, 'https://via.placeholder.com/') === 0)
+                                    <img class="object-cover" src="{{ $orderItem->product->photo }}" alt="{{ $orderItem->product->name }}">
+                                @else
+                                    <img class="object-cover" src="{{ asset($orderItem->product->photo) }}" alt="{{ $orderItem->product->name }}">
+                                @endif
                             </div>
                             <div class="grow">
                                 <strong class="text-xl">{{ $orderItem->product->name }}</strong>
@@ -34,7 +36,6 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
                 @endforeach
             </div>
             <div class="flex flex-col justify-end items-end p-4 mb-4 bg-white rounded-md">

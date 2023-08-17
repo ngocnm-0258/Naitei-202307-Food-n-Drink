@@ -5,7 +5,7 @@
                 <x-slot name='header' class="text-2xl font-semibold mb-4">{{ __('cart.show.title') }}</x-slot>
 
                 <div class="bg-white p-4 shadow-md rounded-md mb-4">
-                    <table class="w-full">
+                    <table class="cart-table w-full">
                         <thead>
                             <tr>
                                 <th class="py-2">{{ __('cart.Product') }}</th>
@@ -22,18 +22,38 @@
                                     <td class="py-2 text-center"><a
                                         href="{{ route('products.show', $item->product_id) }}">{{ $item->product->name }}</a>
                                     </td>
+
                                     <td class="py-2 text-center">
-                                        {{ $item->product->price }}</td>
-                                    <td class="py-2 text-center">
-                                        <input type="number" class="w-16 p-1 border rounded-md"
-                                            value="{{ $item->quantity }}" min="1">
+                                        {{ formatCurrency($item->product->price) }}
                                     </td>
+                                    <form action="{{ route('cart.update', ['cart' => $item->id]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <td class="py-2 text-center">
+                                            <button class="minus-btn w-1/12 p-1 bg-gray-300 hover:bg-gray-400 rounded-l">
+                                                <span class="text-sm font-semibold">-</span>
+                                            </button>
+                                            <input name="quantity" data-max="{{ $item->product->number_in_stock }}" type="text"
+                                                class="quantity-input w-1/5 text-center border border-gray-300 px-2 py-1" value="{{ $item->quantity }}" readonly>
+                                            <button class="plus-btn w-1/12 p-1 bg-gray-300 hover:bg-gray-400 rounded-r">
+                                                <span class="text-sm font-semibold">+</span>
+                                            </button>
+                                        </td>
+                                    </form>
+
                                     <td class="py-2 text-center">
-                                        {{ $item['total_price'] }}
+                                        {{ formatCurrency($item->total_price) }}
                                     </td>
-                                    <td class="py-2 text-center">
-                                        <button class="text-red-500 hover:text-red-700">{{ __('Remove') }}</button>
-                                    </td>
+
+                                    <form method="POST" action="{{ route('cart.destroy', ['cart' => $item->id]) }}" class="button delete">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <td class="py-2 text-center">
+                                            <button class="text-red-500 hover:text-red-700">{{ __('Remove') }}</button>
+                                        </td>
+                                    </form>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -41,9 +61,11 @@
                 </div>
 
                 <div class='p-4 pt-0 rounded-md'>
-                    <div class="text-right"><strong>{{ __('Total') }}:
-                            {{ $cartItems->sum('total_price') }}
-                        </strong></div>
+                    <div class="text-right">
+                        <strong>{{ __('Total') }}:
+                            {{ formatCurrency($cartItems->sum('total_price')) }}
+                        </strong>
+                    </div>
                     <div class="text-right">
                         <a href="{{ route('orders.create') }}"
                             class="button edit @if ($cartItems->count() <= 0) disabled @endif">

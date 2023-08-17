@@ -95,19 +95,25 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, CartItem $cart)
     {
-        //
+        $cart->quantity = $request->quantity;
+
+        $cart->save();
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(CartItem $cart)
     {
-        //
+        $cart->delete();
+
+        return back()->with('success', trans('cart.delete.success'));
     }
 }

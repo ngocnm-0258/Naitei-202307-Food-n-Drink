@@ -12,4 +12,7 @@ return [
     'add' => [
         'success' => 'Thêm sản phẩm vào giỏ hàng thành công',
     ],
+    'delete' => [
+        'success' => 'Xóa sản phẩm trong giỏ hàng thành công',
+    ],
 ];

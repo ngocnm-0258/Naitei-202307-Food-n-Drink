@@ -43,11 +43,12 @@
                             <div class="flex items-center mt-4">
                                 <div class="text-gray-500 text-base mr-2">{{ __('product.show.quantity') }}</div>
 
-                                <button id="minus-btn" type="button" class="w-1/12 p-1 bg-gray-300 hover:bg-gray-400 rounded-l">
+                                <button type="button" class="minus-btn w-1/12 p-1 bg-gray-300 hover:bg-gray-400 rounded-l">
                                     <span class="text-sm font-semibold">-</span>
                                 </button>
-                                <input id="quantity"  name="quantity" data="{{ $product->number_in_stock }}" type="text" class="w-1/5 text-center border border-gray-300 px-2 py-1" value="1" readonly>
-                                <button id="plus-btn" type="button" class="w-1/12 p-1 bg-gray-300 hover:bg-gray-400 rounded-r">
+                                <input name="quantity" data-max="{{ $product->number_in_stock }}" type="text"
+                                       class="quantity-input w-1/5 text-center border border-gray-300 px-2 py-1" value="1" readonly>
+                                <button type="button" class="plus-btn w-1/12 p-1 bg-gray-300 hover:bg-gray-400 rounded-r">
                                     <span class="text-sm font-semibold">+</span>
                                 </button>
 
