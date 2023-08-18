@@ -37,7 +37,7 @@
                                                 clip-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <div>Contacts</div>
+                                    <div>{{ __('Contacts') }}</div>
                                 </button>
                             </x-slot>
 

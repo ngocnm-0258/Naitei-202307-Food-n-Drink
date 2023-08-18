@@ -17,6 +17,7 @@ return [
         'cart' => [
             'required' => 'Cart item is required',
         ],
+        'button' => 'Order',
     ],
     'update' => [
         'success' => 'Order created successfully',

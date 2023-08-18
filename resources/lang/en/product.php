@@ -3,6 +3,7 @@
 return [
     'index' => [
         'sold' => 'Sold: ',
+        'title' => 'Product List',
     ],
 
     'show' => [

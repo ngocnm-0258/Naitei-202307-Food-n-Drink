@@ -17,6 +17,7 @@ return [
         'cart' => [
             'required' => 'Không có sản phẩm để tạo đơn',
         ],
+        'button' => 'Đặt hàng',
     ],
     'update' => [
         'success' => 'Tạo đơn hàng thành công',

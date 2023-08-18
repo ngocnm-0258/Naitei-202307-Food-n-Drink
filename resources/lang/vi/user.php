@@ -36,7 +36,7 @@ return [
         'table' => [
             'id' => '#',
             'name' => 'Tên sản phẩm',
-            'price' => 'Giá thành',
+            'price' => 'Giá',
             'images' => 'Hình ảnh',
             'numberStock' => 'Số lượng trong kho',
         ],

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\PaymentMethod;
 use App\Enums\OrderStatus;
 use App\Enums\UserRole;
-use App\Http\Requests\Order\OrderRequest;
+use App\Http\Requests\Order\OrderCreateRequest;
+use App\Http\Requests\Order\OrderUpdateRequest;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -66,7 +67,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderRequest $request)
+    public function store(OrderCreateRequest $request)
     {
         $request->validated();
         $user = Auth::user()->load('cartItems');
@@ -141,7 +142,7 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OrderRequest $request, Order $order)
+    public function update(OrderUpdateRequest $request, Order $order)
     {
         if ($order->orderItems[0]->status === OrderStatus::WAITING) {
             $order->contact_id = $request->contact_id;
