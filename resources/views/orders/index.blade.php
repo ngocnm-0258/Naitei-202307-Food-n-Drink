@@ -46,6 +46,9 @@
                     </div>
                 @endforeach
             @else
+                <x-no-item>
+                    {{ __('order.empty') }}
+                </x-no-item>
             @endif
         </div>
     </div>
