@@ -30,7 +30,14 @@ class AuthorizedOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => Rule::in(OrderStatus::$types),
+            'status' => Rule::in(OrderStatus::$available_status),
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'contact_id.in' => trans('order.validation.status.notAbleCancel'),
         ];
     }
 }

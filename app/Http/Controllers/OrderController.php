@@ -143,6 +143,10 @@ class OrderController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
+        if ($order->user_id !== Auth::id()) {
+            return redirect('/')->with('fail', trans('auth.403'));
+        }
+
         if ($order->orderItems[0]->status === OrderStatus::WAITING) {
             $order->contact_id = $request->contact_id;
             $order->save();
@@ -160,6 +164,18 @@ class OrderController extends Controller
      */
     public function cancel(Order $order)
     {
-        //
+        if ($order->user_id !== Auth::id()) {
+            return redirect(route('orders.index'))->with('fail', trans('auth.403'));
+        }
+
+        DB::transaction(function () use ($order) {
+            $order->load('orderItems');
+            foreach ($order->orderItems as $item) {
+                $item->status = OrderStatus::CANCELED;
+                $item->save();
+            }
+        });
+
+        return redirect(route('orders.show', $order))->with('success', trans('order.cancel.success'));
     }
 }

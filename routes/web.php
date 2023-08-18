@@ -36,8 +36,8 @@ Route::resource('/contacts', ContactController::class)->middleware(['auth', 'ver
 
 Route::resource('/cart', CartController::class);
 
-Route::post('/orders/:post', [OrderController::class, 'cancel'])->name('orders.cancel');
 Route::resource('/orders', OrderController::class);
+Route::delete('/orders/{order}', [OrderController::class, 'cancel'])->name('orders.cancel');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
