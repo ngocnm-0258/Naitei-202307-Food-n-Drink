@@ -2,7 +2,8 @@
 
 return [
     'index' => [
-        'sold'=> 'Đã bán: ',
+        'sold' => 'Đã bán: ',
+        'title' => 'Danh sách sản phẩm',
     ],
 
     'show' => [

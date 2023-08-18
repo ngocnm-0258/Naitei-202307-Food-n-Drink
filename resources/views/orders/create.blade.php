@@ -120,7 +120,7 @@
                 </div>
                 <div class=" w-full flex justify-end">
                     <button type="submit" class="button primary">
-                        {{ __('Order') }}
+                        {{ __('order.create.button') }}
                     </button>
                 </div>
             </form>

@@ -2,11 +2,23 @@
     "Create At": "Tạo ngày",
     "Confirm Delete": "Bạn có chắc chắn muốn xóa?",
     "Cancel": "Hủy",
+    "View": "Xem",
     "Save changes": "Lưu thay đổi",
     "Delete": "Xóa",
     "Edit": "Sửa",
     "currency": "VND",
-    "Order": "Đặt hàng",
     "Login": "Đăng nhập",
-    "Register": "Đăng ký"
+    "Register": "Đăng ký",
+    "Dashboard": "Bảng điều khiển",
+    "Products": "Sản phẩm",
+    "Users": "Người dùng",
+    "Order": "Đơn hàng",
+    "Contacts": "Địa chỉ giao hàng",
+    "Showing": "Hiển thị",
+    "to": "đến",
+    "of": "trong",
+
+    "results": "kết quả",
+    "Vietnamese": "Tiếng Việt",
+    "English": "Tiếng Anh"
 }
