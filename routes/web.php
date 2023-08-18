@@ -24,19 +24,19 @@ Route::get('language/{locale}', [LangController::class, "changeLang"])->name('ch
 Route::get('/', [ProductController::class, 'index']);
 Route::resource('/products', ProductController::class);
 
-Route::resource('/users', UserController::class)->middleware(['auth']);
+Route::resource('/users', UserController::class)->middleware(['auth', 'verified']);
 Route::get('/users/{user}/products', [UserController::class, 'showUserProducts'])
     ->name('user.products')->middleware(['auth', 'checkSalesman']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'checkSalesman'])->name('dashboard');
 
 Route::resource('/contacts', ContactController::class)->middleware(['auth', 'verified']);
 
 Route::resource('/cart', CartController::class);
 
-Route::resource('/orders', OrderController::class);
+Route::resource('/orders', OrderController::class)->middleware(['auth', 'verified']);
 Route::delete('/orders/{order}', [OrderController::class, 'cancel'])->name('orders.cancel');
 
 require __DIR__ . '/auth.php';
