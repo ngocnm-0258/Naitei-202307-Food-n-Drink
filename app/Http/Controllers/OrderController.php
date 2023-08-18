@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enums\PaymentMethod;
 use App\Enums\OrderStatus;
+use App\Enums\UserRole;
 use App\Http\Requests\Order\OrderRequest;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -38,7 +38,7 @@ class OrderController extends Controller
         $user = Auth::user();
         $user->load('orders.orderItems.product');
 
-        return view('order.index')->with('user', $user);
+        return view('orders.index', compact('user'));
     }
 
     /**
@@ -57,7 +57,7 @@ class OrderController extends Controller
             return redirect()->back()->with('fail', trans('order.create.cart.required'));
         }
 
-        return view('order.create')->with(['user' => $user, 'paymentMethods' => $paymentMethods]);
+        return view('orders.create', compact('user', 'paymentMethods'));
     }
 
     /**
@@ -110,8 +110,9 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order->load('contact');
+        $order->load('orderItems.product');
 
-        return view('order.show')->with('order', $order);
+        return view('orders.show', compact('order'));
     }
 
     /**
@@ -120,9 +121,17 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Order $order)
     {
-        //
+        if ($order->orderItems[0]->status !== OrderStatus::WAITING) {
+            return redirect(route('orders.show', $order))->with('fail', trans('auth.403'));
+        }
+
+        $order->load('orderItems');
+        $order->load('contact');
+        $user = Auth::user();
+
+        return view('orders.edit', compact('order', 'user'));
     }
 
     /**
@@ -132,18 +141,24 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrderRequest $request, Order $order)
     {
-        //
+        if ($order->orderItems[0]->status === OrderStatus::WAITING) {
+            $order->contact_id = $request->contact_id;
+            $order->save();
+            return redirect(route('orders.show', $order))->with('success', trans('order.update.success'));
+        }
+
+        return redirect(route('orders.show', $order))->with('fail', trans('order.update.fail'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function cancel(Order $order)
     {
         //
     }

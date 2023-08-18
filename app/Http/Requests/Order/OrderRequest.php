@@ -4,6 +4,7 @@ namespace App\Http\Requests\Order;
 
 use App\Enums\PaymentMethod;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class OrderRequest extends FormRequest
@@ -15,7 +16,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::id() === $this->route('order.user_id');
     }
 
     /**

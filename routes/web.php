@@ -35,6 +35,8 @@ Route::get('/dashboard', function () {
 Route::resource('/contacts', ContactController::class)->middleware(['auth', 'verified']);
 
 Route::resource('/cart', CartController::class);
+
+Route::post('/orders/:post', [OrderController::class, 'cancel'])->name('orders.cancel');
 Route::resource('/orders', OrderController::class);
 
 require __DIR__ . '/auth.php';

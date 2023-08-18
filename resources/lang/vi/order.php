@@ -4,6 +4,8 @@ return [
     'Quantity' => 'Sô lượng',
     'Total' => 'Tổng cộng (:totalQuantity sản phẩm)',
     'Payment Method' => 'Phương thức thanh toán',
+    'id' => 'Mã',
+    'empty' => 'Không tìm thấy đơn hàng nào',
     'index' => [
         'title' => 'Đơn hàng',
     ],
@@ -16,8 +18,15 @@ return [
             'required' => 'Không có sản phẩm để tạo đơn',
         ],
     ],
-    "store" => [
-        "fail" => 'Tạo đơn hàng không thành công',
+    'update' => [
         'success' => 'Tạo đơn hàng thành công',
+        'fail' => 'Tạo đơn hàng không thành công',
+    ],
+    'store' => [
+        'fail' => 'Tạo đơn hàng không thành công',
+        'success' => 'Tạo đơn hàng thành công',
+    ],
+    'cancel' => [
+        'button' => 'Hủy đơn',
     ],
 ];
