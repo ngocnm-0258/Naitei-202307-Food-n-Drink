@@ -22,6 +22,6 @@ class CheckSalesman
             return $next($request);
         }
 
-        return redirect('/dashboard')->with('fail', trans('auth.403'));
+        return redirect('/')->with('fail', trans('auth.403'));
     }
 }
