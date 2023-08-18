@@ -7,6 +7,7 @@ return [
         'PACKAGED' => 'Salesman was packed',
         'DELIVERING' => 'Your order is delivering',
         'DELIVERED' => 'Delivered',
+        'CANCELED' => 'Order has been canceled',
     ],
     'paymentMethod' => [
         'CASH' => 'Cash on Delivery',

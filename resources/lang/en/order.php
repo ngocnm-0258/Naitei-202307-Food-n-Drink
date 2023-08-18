@@ -6,6 +6,11 @@ return [
     'Payment Method' => 'Payment Method',
     'id' => '#',
     'empty' => 'Order list is empty',
+    'validation' => [
+        'status' => [
+            'notAbleCancel' => 'Order can\'t be changed'
+        ],
+    ],
     'index' => [
         'title' => 'Orders',
     ],
@@ -29,5 +34,6 @@ return [
     ],
     'cancel' => [
         'button' => 'Cancel Order',
+        'success' => 'Order canceled successfully',
     ],
 ];

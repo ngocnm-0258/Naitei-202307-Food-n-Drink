@@ -6,7 +6,8 @@
             @if ($user->orders->count())
                 @foreach ($user->orders as $order)
                     <div class="mb-2 bg-white rounded p-4 flex flex-col items-center">
-                        <div class="border rounded-md border-blue-500 w-full p-2 mb-4 mt-2">
+                        <div
+                            class="border rounded-md w-full p-2 mb-4 mt-2 @if ($order->orderItems[0]->status === App\Enums\OrderStatus::CANCELED) border-red-500 bg-red-100 @else border-blue-500 @endif">
                             {{ __('constant.orderStatus.' . $order->orderItems[0]->status) }}
                         </div>
                         @foreach ($order->orderItems as $orderItem)

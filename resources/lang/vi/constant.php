@@ -7,6 +7,7 @@ return [
         'PACKAGED' => 'Đã đóng gói xong. Đang chờ bàn giao cho đơn vị vận chuyển',
         'DELIVERING' => 'Đơn hàng đang được vận chuyển',
         'DELIVERED' => 'Đã nhận hàng',
+        'CANCELED' => 'Đơn hàng đã được hủy',
     ],
     'paymentMethod' => [
         'CASH' => 'Trả khi nhận hàng',

@@ -6,6 +6,11 @@ return [
     'Payment Method' => 'Phương thức thanh toán',
     'id' => 'Mã',
     'empty' => 'Không tìm thấy đơn hàng nào',
+    'validation' => [
+        'status' => [
+            'notAbleCancel' => 'Đơn hàng không thể thay đổi'
+        ],
+    ],
     'index' => [
         'title' => 'Đơn hàng',
     ],
@@ -29,5 +34,6 @@ return [
     ],
     'cancel' => [
         'button' => 'Hủy đơn',
+        'success' => 'Đã hủy đơn hàng thành công',
     ],
 ];

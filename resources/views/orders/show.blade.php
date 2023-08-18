@@ -4,7 +4,8 @@
     <div class='py-8'>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="p-4 mb-4 bg-white rounded-md">
-                <div class="border rounded-md border-blue-500 w-full p-2 mb-4 mt-2">
+                <div
+                    class="border rounded-md w-full p-2 mb-4 mt-2 @if ($order->orderItems[0]->status === App\Enums\OrderStatus::CANCELED) border-red-500 bg-red-100 @else border-blue-500 @endif">
                     {{ __('constant.orderStatus.' . $order->orderItems[0]->status) }}
                 </div>
                 <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 bg-white shadow-sm sm:rounded-lg p-6">
@@ -65,10 +66,15 @@
                             <a class="button edit" href="{{ route('orders.edit', $order) }}">{{ __('Edit') }}</a>
                         @endif
                     @endif
-                    <a class="ml-4 button  @if ($order->orderItems[0]->status !== App\Enums\OrderStatus::WAITING) disabled @else bg-slate-300 border text-black hover:bg-slate-400 @endif"
-                        href="{{ route('orders.cancel', $order->id) }}">
-                        {{ __('order.cancel.button') }}
-                    </a>
+                    <form action="{{ route('orders.cancel', $order) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button
+                            class="ml-4 button  @if ($order->orderItems[0]->status !== App\Enums\OrderStatus::WAITING) disabled @else bg-slate-300 border text-black hover:bg-slate-400 @endif"
+                            type="submit">
+                            {{ __('order.cancel.button') }}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
