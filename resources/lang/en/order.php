@@ -35,5 +35,6 @@ return [
     'cancel' => [
         'button' => 'Cancel Order',
         'success' => 'Order canceled successfully',
+        'message' => 'Product was deleted',
     ],
 ];

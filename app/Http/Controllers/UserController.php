@@ -28,9 +28,16 @@ class UserController extends Controller
 
     public function showUserProducts(User $user)
     {
-        $products = DB::table('products')->where('salesman_id', $user->id)
-            ->orderBy('id', 'desc')
-            ->paginate(config('app.pagination.per_page'));
+        if ($user->role === 'ADMIN') {
+            $products = DB::table('products')->where('number_in_stock', '>', '-1')
+                ->orderBy('id', 'desc')
+                ->paginate(config('app.pagination.per_page'));
+        } else {
+            $products = DB::table('products')->where('salesman_id', $user->id)
+                ->where('number_in_stock', '>', '-1')
+                ->orderBy('id', 'desc')
+                ->paginate(config('app.pagination.per_page'));
+        }
 
         return view('users.products')->with('products', $products);
     }

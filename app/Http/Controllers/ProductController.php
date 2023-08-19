@@ -21,8 +21,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->where('salesman_id', '<>', Auth::user()->id)
-            ->orderBy('id', 'desc')->paginate(config('app.pagination.per_page'));
+        $products = DB::table('products')->where('number_in_stock', '>', '-1')
+            ->orderBy('id', 'desc')
+            ->paginate(config('app.pagination.per_page'));
 
         return view('products.index', compact('products'));
     }
@@ -43,8 +44,8 @@ class ProductController extends Controller
         $categoryId = $request->category ?? 0;
 
         $query = Product::with('categories')
-            ->where('name', 'LIKE', '%' . $searchTerm . '%')
-            ->where('salesman_id', '<>', Auth::user()->id);
+            ->where('number_in_stock', '>', '-1')
+            ->where('name', 'LIKE', '%' . $searchTerm . '%');
 
         if ($categoryId > 0) {
             $query->whereHas('categories', function ($query) use ($categoryId) {
@@ -88,7 +89,10 @@ class ProductController extends Controller
 
         $product->save();
 
+        $product->categories()->attach($request->category);
+
         $products = DB::table('products')->where('salesman_id', $product->salesman_id)
+            ->where('number_in_stock', '>', '-1')
             ->orderBy('id', 'desc')
             ->paginate(config('app.pagination.per_page'));
 
@@ -103,11 +107,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        if ($product->number_in_stock == -1) {
+            return back();
+        }
         $count = DB::table('product_reviews')->where('product_id', $product->id)->count();
         $product->review = $count;
         $reviews = ProductReview::with('user')->where('product_id', $product->id)->get();
         $sameUserProducts = DB::table('products')
             ->where('salesman_id', $product->salesman_id)
+            ->where('number_in_stock', '>', '-1')
             ->where('id', '<>', $product->id)
             ->get();
 
@@ -134,6 +142,9 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        if ($product->number_in_stock == -1) {
+            return back();
+        }
         $validated = $request->validated();
         $product->name = $validated['name'];
         $product->description = $validated['description'];
@@ -157,6 +168,7 @@ class ProductController extends Controller
 
         $product->save();
         $products = DB::table('products')->where('salesman_id', $product->salesman_id)
+            ->where('number_in_stock', '>', '-1')
             ->orderBy('id', 'desc')
             ->paginate(config('app.pagination.per_page'));
 
@@ -172,12 +184,16 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         DB::transaction(function () use ($product) {
+            $product->number_in_stock = -1;
+            $product->load('categories');
+            $product->categories()->delete();
             $product->load('cartItems');
             $product->cartItems()->delete();
-            $product->delete();
+            $product->save();
         });
 
         $products = DB::table('products')->where('salesman_id', $product->salesman_id)
+            ->where('number_in_stock', '>', '-1')
             ->orderBy('id', 'desc')
             ->paginate(config('app.pagination.per_page'));
 

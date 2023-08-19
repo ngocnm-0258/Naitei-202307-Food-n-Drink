@@ -35,5 +35,6 @@ return [
     'cancel' => [
         'button' => 'Hủy đơn',
         'success' => 'Đã hủy đơn hàng thành công',
+        'message' => 'Sản phẩm không đã bị xóa',
     ],
 ];

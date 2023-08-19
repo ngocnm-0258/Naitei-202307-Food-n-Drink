@@ -34,7 +34,7 @@
                                     {{ $orderItem->quantity }}
                                 </div>
                                 <div class="text-black text-xl mr-4">
-                                    {{ formatCurrency($orderItem->price) }}
+                                    {{ formatCurrency($orderItem->product->price) }}
                                 </div>
                             </div>
                         </div>

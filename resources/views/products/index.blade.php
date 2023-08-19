@@ -41,7 +41,12 @@
                                             <div class="px-6 py-4">
                                                 <input type="hidden" name="id" value="{{ $product->id }}" />
                                                 <div class="flex justify-between items-center">
-                                                    <div class="font-bold text-xl mb-4">{{ $product->name }}</div>
+                                                    <div class="font-bold text-xl mb-4">
+                                                        @php
+                                                            $limitedName = Str::limit($product->name, 12);
+                                                        @endphp
+                                                        {{ $limitedName }}
+                                                    </div>
                                                     <div class="font-bold text-sm text-gray-400 mb-4">
                                                         {{ __('product.index.sold') }}{{ $product->number_of_purchase }}
                                                     </div>

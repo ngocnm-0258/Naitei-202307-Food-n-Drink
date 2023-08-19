@@ -33,6 +33,13 @@
                                 <input type="text" name="number_in_stock" id="number_in_stock" value="{{ old('number_in_stock') }}"
                                     class="form-input mt-1 block w-1/2 rounded-md">
                             </div>
+                            <div>
+                                <label for="number_in_stock" class="block text-sm font-medium text-gray-700">{{ __('product.edit.category') }}</label>
+                                <select data-filter="make" name="category" class="filter-make filter form-control rounded">
+                                    <option value="1">{{ __('product.index.food') }}</option>
+                                    <option value="2">{{ __('product.index.drink') }}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label for="photo" class="block text-sm font-medium text-gray-700">{{ __('product.edit.photo') }}</label>

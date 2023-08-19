@@ -30,5 +30,6 @@ return [
         'price' => 'Giá thành',
         'numberStock' => 'Số lượng trong kho',
         'photo' => 'Hình ảnh',
+        'category' => 'Phân loại',
     ],
 ];
