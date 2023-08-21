@@ -4,6 +4,8 @@ return [
     'button' => 'Tạo người dùng',
     'username' => 'Người dùng',
     'fullname' => 'Họ và tên',
+    'firstName' => 'Tên',
+    'lastName' => 'Họ',
     'password' => 'Mật khẩu',
     'index' => [
         'title' => 'Danh sách người dùng',
