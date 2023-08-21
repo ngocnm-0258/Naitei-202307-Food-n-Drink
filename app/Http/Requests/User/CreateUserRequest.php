@@ -27,7 +27,7 @@ class CreateUserRequest extends FormRequest
         return [
             'fullname' => 'required|string|max:255',
             'username' => 'required|string|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|max:255',
             'role' => Rule::in(UserRole::$types),
         ];
