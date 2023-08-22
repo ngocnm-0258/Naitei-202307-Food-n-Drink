@@ -5,6 +5,8 @@ return [
     'username' => 'Username',
     'fullname' => 'Full name',
     'password' => "Password",
+    'firstName' => 'First name',
+    'lastName' => 'Last name',
     'index' => [
         'title' => 'Users list',
         'table' => [

@@ -77,9 +77,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $validated = $request->validated();
-        $user->fullName = $validated['fullname'];
-        $user->email = $validated['email'];
-        $user->username = $validated['username'];
+        $user->fill($validated);
         $user->save();
 
         return redirect()->route('users.show', ['user' => $user->id])->with('success', trans('user.update.success'));
