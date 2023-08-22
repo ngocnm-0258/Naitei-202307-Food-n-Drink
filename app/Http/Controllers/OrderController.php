@@ -38,6 +38,21 @@ class OrderController extends Controller
     {
         $user = Auth::user();
         $user->load('orders.orderItems.product');
+        foreach ($user->orders as $order) {
+            $cancel = 0;
+            foreach ($order->orderItems as $orderItem) {
+                if ($orderItem->status !== OrderStatus::CANCELED && $orderItem->product->number_in_stock == -1) {
+                    $cancel = 1;
+                    break;
+                }
+            }
+            if ($cancel == 1) {
+                foreach ($order->orderItems as $orderItem) {
+                    $orderItem->status = OrderStatus::CANCELED;
+                    $orderItem->save();
+                }
+            }
+        }
 
         return view('orders.index', compact('user'));
     }

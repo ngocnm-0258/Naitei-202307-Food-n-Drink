@@ -40,5 +40,8 @@ return [
             'images' => 'Image',
             'numberStock' => 'Number in Stock',
         ],
+        'delete' => [
+            'success' => 'Delete product successfully',
+        ],
     ],
 ];

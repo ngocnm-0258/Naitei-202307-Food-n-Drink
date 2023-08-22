@@ -29,5 +29,6 @@ return [
         'price' => 'Price',
         'numberStock' => 'Number in stock',
         'photo' => 'Photo',
+        'category' => 'Category',
     ],
 ];

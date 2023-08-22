@@ -40,5 +40,8 @@ return [
             'images' => 'Hình ảnh',
             'numberStock' => 'Số lượng trong kho',
         ],
+        'delete' => [
+            'success' => 'Xóa sản phẩm thành công',
+        ],
     ],
 ];
