@@ -6,6 +6,7 @@ return [
         'category' => 'Category',
         'food' => 'Food',
         'drink' => 'Drink',
+        'hot' => 'Hot',
         'title' => 'Product List',
     ],
 

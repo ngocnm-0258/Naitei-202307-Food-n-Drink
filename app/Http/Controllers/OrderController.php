@@ -10,6 +10,8 @@ use App\Http\Requests\Order\OrderUpdateRequest;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\ProductReview;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +39,11 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $user->load('orders.orderItems.product');
+        $user->load(['orders' => function ($query) {
+            $query->orderByDesc('created_at');
+            $query->with('orderItems.product');
+        }]);
+
         foreach ($user->orders as $order) {
             $cancel = 0;
             foreach ($order->orderItems as $orderItem) {
@@ -55,6 +61,46 @@ class OrderController extends Controller
         }
 
         return view('orders.index', compact('user'));
+    }
+
+    public function showDeliveredOrders()
+    {
+        $user = Auth::user();
+        $user->load(['orders' => function ($query) {
+            $query->orderByDesc('created_at');
+            $query->with('orderItems.product');
+        }]);
+
+        return view('orders.delivered', compact('user'));
+    }
+
+    public function showOrdersComments(Order $order)
+    {
+        $order->load('contact');
+        $order->load('orderItems.product');
+        $order->load('orderItems.review');
+
+        return view('orders.comment', compact('order'));
+    }
+
+    public function createOrderItemComment(Request $request)
+    {
+        $user = Auth::user();
+        $orderItemIds = array_keys($request->input('content'));
+
+        foreach ($orderItemIds as $orderItemId) {
+            $productReview = new ProductReview;
+
+            $productReview->content = $request->input('content.' . $orderItemId);
+            $productReview->order_item_id = $request->order_item_id[$orderItemId];
+            $productReview->product_id = $request->product_id[$orderItemId];
+            $productReview->user_id = $user->id;
+            $productReview->rate = 5;
+
+            $productReview->save();
+        }
+
+        return view('orders.delivered', compact('user'));
     }
 
     /**

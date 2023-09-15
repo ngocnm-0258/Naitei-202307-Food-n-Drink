@@ -32,6 +32,11 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function review()
+    {
+        return $this->hasOne(ProductReview::class);
+    }
+
     public function getTotalPriceAttribute()
     {
         return $this->product->price * $this->quantity;

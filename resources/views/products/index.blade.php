@@ -18,6 +18,7 @@
                             <option value="0">{{ __('product.index.category') }}</option>
                             <option value="1">{{ __('product.index.food') }}</option>
                             <option value="2">{{ __('product.index.drink') }}</option>
+                            <option value="3">{{ __('product.index.hot') }}</option>
                         </select>
                         <button class="w-1/6 rounded bg-blue-500 p-2 text-white" type="submit">Tìm</button>
                     </form>

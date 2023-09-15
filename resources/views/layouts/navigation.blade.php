@@ -23,8 +23,11 @@
                         {{ __('Products') }}
                     </x-nav-link>
                     @auth
-                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                             {{ __('Orders') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('orders.delivered')" :active="request()->routeIs('orders.delivered')">
+                            {{ __('Orders Delivered') }}
                         </x-nav-link>
                     @endauth
                     <div class="grow"></div>

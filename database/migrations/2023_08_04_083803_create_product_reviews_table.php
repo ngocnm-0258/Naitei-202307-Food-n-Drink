@@ -19,6 +19,8 @@ class CreateProductReviewsTable extends Migration
             $table->integer('rate');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('order_item_id');
+            $table->foreign('order_item_id')->references('id')->on('order_items')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
@@ -35,6 +37,8 @@ class CreateProductReviewsTable extends Migration
         Schema::table('product_reviews', function (Blueprint $table) {
             $table->dropForeign('product_reviews_user_id_foreign');
             $table->dropForeign('product_reviews_product_id_foreign');
+            $table->dropForeign('product_reviews_order_item_id_foreign');
+            $table->dropColumn('order_item_id');
             $table->dropColumn('user_id');
             $table->dropColumn('product_id');
         });

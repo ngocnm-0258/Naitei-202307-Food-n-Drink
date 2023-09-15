@@ -47,7 +47,10 @@ class ProductController extends Controller
             ->where('number_in_stock', '>', '-1')
             ->where('name', 'LIKE', '%' . $searchTerm . '%');
 
-        if ($categoryId > 0) {
+        if ($categoryId == 3) {
+            $query->orderBy('number_of_purchase', 'desc')
+                ->paginate(config('app.pagination.per_page'));
+        } else if ($categoryId > 0) {
             $query->whereHas('categories', function ($query) use ($categoryId) {
                 $query->where('categories.id', $categoryId);
             });

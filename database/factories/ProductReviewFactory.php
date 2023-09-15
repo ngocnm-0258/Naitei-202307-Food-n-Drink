@@ -18,6 +18,7 @@ class ProductReviewFactory extends Factory
             'rate' => $this->faker->randomFloat(1, 1, 5),
             'user_id' => $this->faker->numberBetween(2, 11),
             'product_id' => $this->faker->numberBetween(1, 10),
+            'order_item_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

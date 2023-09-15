@@ -37,8 +37,14 @@ Route::resource('/contacts', ContactController::class)->middleware(['auth', 'ver
 
 Route::resource('/cart', CartController::class);
 
+Route::get('/orders/delivered', [OrderController::class, 'showDeliveredOrders'])->name('orders.delivered');
+Route::get('/orders/{order}/comment', [OrderController::class, 'showOrdersComments'])->name('orders.comment');
+Route::post('/orders/comment/update', [OrderController::class, 'createOrderItemComment'])->name('orders.createComment');
 Route::resource('/orders', OrderController::class)->middleware(['auth', 'verified']);
+
 Route::delete('/orders/{order}', [OrderController::class, 'cancel'])->name('orders.cancel');
+
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
